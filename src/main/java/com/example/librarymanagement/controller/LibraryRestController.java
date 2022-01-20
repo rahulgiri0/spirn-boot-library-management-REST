@@ -55,7 +55,7 @@ public class LibraryRestController {
 		return new ResponseEntity<Book>(HttpStatus.NO_CONTENT);
 	}
 
-	@PutMapping("/author/{authorId}/book/")
+	@PutMapping("/author/{authorId}/book")
 	public ResponseEntity<Book> updateBook(@PathVariable int authorId, @RequestBody Book book) {
 		Book updatedBook = bookService.updateBook(authorId, book);
 

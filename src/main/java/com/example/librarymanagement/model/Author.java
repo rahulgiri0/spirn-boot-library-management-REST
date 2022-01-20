@@ -2,6 +2,7 @@ package com.example.librarymanagement.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,8 @@ public class Author {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int authorId;
 	private String name;
-	@OneToMany(mappedBy = "author")
+	@OneToMany(mappedBy = "author", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH })
 	@JsonManagedReference
 	private List<Book> books;
 

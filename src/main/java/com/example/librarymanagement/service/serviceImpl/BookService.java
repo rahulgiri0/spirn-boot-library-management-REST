@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.librarymanagement.dao.AuthorRepository;
 import com.example.librarymanagement.dao.BookRepository;
+import com.example.librarymanagement.model.Author;
 import com.example.librarymanagement.model.Book;
 import com.example.librarymanagement.service.IBookService;
 
@@ -14,10 +16,14 @@ public class BookService implements IBookService {
 
 	@Autowired
 	private BookRepository bookRepo;
+	@Autowired
+	private AuthorRepository authorRepository;
 
 	@Override
 	public List<Book> getAllBooks(int authorId) {
-		List<Book> books = (List<Book>) bookRepo.findAll();
+
+		Author author = authorRepository.findById(authorId).get();
+		List<Book> books = author.getBooks();
 		return books;
 	}
 
@@ -35,12 +41,17 @@ public class BookService implements IBookService {
 
 	@Override
 	public Book updateBook(int authorId, Book book) {
+		Author author = authorRepository.findById(authorId).get();
+		book.setAuthor(author);
 		Book updateBook = bookRepo.save(book);
 		return updateBook;
 	}
 
 	@Override
-	public Book createBook(int autorId, Book book) {
+	public Book createBook(int authorId, Book book) {
+
+		Author author = authorRepository.findById(authorId).get();
+		book.setAuthor(author);
 		Book newBook = bookRepo.save(book);
 		return newBook;
 	}

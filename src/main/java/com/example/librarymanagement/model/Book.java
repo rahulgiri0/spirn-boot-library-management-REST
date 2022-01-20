@@ -1,5 +1,6 @@
 package com.example.librarymanagement.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ public class Book {
 	private int bookId;
 	private int bookCode;
 	private String bookName;
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "authorId")
 	@JsonBackReference
 	private Author author;
